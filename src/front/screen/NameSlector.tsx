@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react"
 
 type NameSelectorProps = {
-    onSelect: (name: string) => void
+    onSelect: (name: string) => void,
+    disabled: boolean
 }
 
-export function NameSelector ({onSelect}: NameSelectorProps) {
+export function NameSelector ({onSelect, disabled}: NameSelectorProps) {
     const [error, setError] = useState('')
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
@@ -26,9 +27,9 @@ export function NameSelector ({onSelect}: NameSelectorProps) {
         </div>}
         <form action="" onSubmit={handleSubmit}>
             <label htmlFor="name">Votre pseudo</label>
-            <input type="text" id="name" name="name" required />
+            <input disabled={disabled} type="text" id="name" name="name" required />
 
-            <button>Choisir</button>
+            <button disabled={disabled}>Choisir</button>
         </form>
     </>
 }
