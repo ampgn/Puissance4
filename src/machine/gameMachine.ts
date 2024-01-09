@@ -1,21 +1,15 @@
 import { createModel } from 'xstate/lib/model';
-import { createMachine } from 'xstate';
+import { interpret, InterpreterFrom } from 'xstate';
 
-import { GridState, Player, PlayerColor } from '../types';
-import { canJoinGuard } from './guards';
-import { joinGameAction } from './actions';
-
-enum GameStates {
-    LOBBY = 'LOBBY',
-    PLAY = 'PLAY',
-    VICTORY = 'VICTORY',
-    DRAW = 'DRAW'
-}
+import { GameContext, GameStates, GridState, Player, PlayerColor, Position } from '../types';
+import { canChooseColorGuard, canDropGuard, canJoinGuard, canLeaveGuard, canStartGameGuard, isDrawMoveGuard, isWinningMoveGuard } from './guards';
+import { chooseColorAction, dropTokenAction, joinGameAction, leaveGameAction, restartAction, saveWinningPositionsAction, setCurrentPlayerAction, switchPlayerAction } from './actions';
 
 export const GameModel = createModel({
     players: [] as Player[],
     currentPlayer: null as null | Player['id'],
     rowLength: 4,
+    winningPositions: [] as Position[],
     grid: [
         ["E", "E", "E", "E", "E", "E", "E"],
         ["E", "E", "E", "E", "E", "E", "E"],
@@ -48,36 +42,75 @@ export const GameMachine = GameModel.createMachine({
                     target: GameStates.LOBBY
                 },
                 leave: {
+                    cond: canLeaveGuard,
+                    actions: [GameModel.assign(leaveGameAction)],
                     target: GameStates.LOBBY
                 },
                 chooseColor: {
-                    target: GameStates.LOBBY
+                    cond: canChooseColorGuard,
+                    target: GameStates.LOBBY,
+                    actions: [GameModel.assign(chooseColorAction)]
                 },
                 start: {
-                    target: GameStates.PLAY
+                    cond: canStartGameGuard,
+                    target: GameStates.PLAY,
+                    actions: [GameModel.assign(setCurrentPlayerAction)]
                 }
             }
         },
         [GameStates.PLAY]: {
-            on: {
-                dropToken: {
-                    target: GameStates.VICTORY
+            after: {
+                20000: {
+                    target: GameStates.PLAY,
+                    actions: [GameModel.assign(switchPlayerAction)]
                 }
+            },
+            on: {
+                dropToken: [
+                    {
+                        cond: isDrawMoveGuard,
+                        target: GameStates.DRAW,
+                        actions: [GameModel.assign(dropTokenAction)]
+                    },
+                    {
+                        cond: isWinningMoveGuard,
+                        target: GameStates.VICTORY,
+                        actions: [GameModel.assign(saveWinningPositionsAction), GameModel.assign(dropTokenAction), ]
+                    },
+                    {
+                        cond: canDropGuard,
+                        target: GameStates.PLAY,
+                        actions: [GameModel.assign(dropTokenAction), GameModel.assign(switchPlayerAction)]
+                    }
+                ]
             }
         },
         [GameStates.VICTORY]: {
             on: {
                 restart: {
-                    target: GameStates.LOBBY
+                    target: GameStates.LOBBY,
+                    actions: [GameModel.assign(restartAction)]
                 }
             }
         },
         [GameStates.DRAW]: {
             on: {
                 restart: {
-                    target: GameStates.LOBBY
+                    target: GameStates.LOBBY,
+                    actions: [GameModel.assign(restartAction)]
                 }
             }
         }    
     }
-});
+})
+
+export function makeGame (state: GameStates = GameStates.LOBBY, context: Partial<GameContext> = {}): InterpreterFrom<typeof GameMachine> {
+    const machine =  interpret(
+        GameMachine.withContext({
+            ...GameModel.initialContext,
+            ...context
+        })
+    ).start()
+    machine.getSnapshot().value = state
+    return machine
+}
