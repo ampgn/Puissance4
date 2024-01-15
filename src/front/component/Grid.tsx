@@ -6,7 +6,7 @@ import { CellState, GridState, PlayerColor } from "../../types"
 type GridProps = {
     grid: GridState,
     color?: PlayerColor,
-    onDrop: (x: number) => void
+    onDrop?: (x: number) => void
 }
 
 export function Grid ({grid, color, onDrop}: GridProps) {
@@ -48,8 +48,6 @@ type ColumnProps = {
 
 function Column({color, onDrop}: ColumnProps) {
     return <div className="column">
-        <button onClick={prevent(onDrop)} className={discColorClass(color)}>
-
-        </button>
+        <button onClick={prevent(onDrop)} className={discColorClass(color)}></button>
     </div>
 }

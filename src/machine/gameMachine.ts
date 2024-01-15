@@ -101,7 +101,8 @@ export const GameMachine = GameModel.createMachine({
                 }
             }
         }    
-    }
+    },
+    predictableActionArguments: true
 })
 
 export function makeGame (state: GameStates = GameStates.LOBBY, context: Partial<GameContext> = {}): InterpreterFrom<typeof GameMachine> {
