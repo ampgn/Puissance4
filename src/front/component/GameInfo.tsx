@@ -1,5 +1,5 @@
-import { discColorClass } from "../../func/color"
-import { PlayerColor } from "../../types"
+import { discColorClass } from "../../func/color";
+import { PlayerColor } from "../../types";
 
 type GameInfoProps = {
     color: PlayerColor,

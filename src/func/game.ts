@@ -1,16 +1,16 @@
-import { GridState, PlayerColor, GameContext, Player, CellState} from "../types";
+import { GridState, PlayerColor, GameContext, Player} from "../types";
 
 export function freePositionY(grid: GridState, x: number): number {
     for (let y = grid.length - 1; y >= 0; y--) {
         if (grid[y][x] === 'E') {
-            return y 
+            return y;
         }
     }
 
     return -1
 }
 
-export function winningPositions (grid: GridState, color: PlayerColor, x: number, size: number) {
+export function winingPositions (grid: GridState, color: PlayerColor, x: number, size: number) {
     const directions = [
         [1, 0],
         [0, 1],
@@ -24,14 +24,14 @@ export function winningPositions (grid: GridState, color: PlayerColor, x: number
     }
 
     for (const direction of directions) {
-        const items = [position]
+        const items = [position];
 
         for (const forward of [1, -1]) {
             for (let i = 1; i < size; i++) {
-                const x = position.x + (i * direction[0] * forward)
-                const y = position.y + (i * direction[1] * forward)
+                const x = position.x + (i * direction[0] * forward);
+                const y = position.y + (i * direction[1] * forward);
 
-                if ((grid?.[y]?.[x] as CellState) !== color) {
+                if (grid?.[y]?.[x] !== color) {
                     break;
                 }
                 
@@ -40,11 +40,11 @@ export function winningPositions (grid: GridState, color: PlayerColor, x: number
         }
 
         if (items.length >= size) {
-            return items 
+            return items; 
         }
     }
 
-    return []
+    return [];
 
 }
 
@@ -53,7 +53,7 @@ export function currentPlayer (context: GameContext): Player {
     if (player === undefined) {
         throw new Error("impossible de récupérer l'actuel joueur")
     }
-    return player
+    return player;
 }
 
 export function countEmptyCells(grid: GridState): number {
@@ -61,7 +61,7 @@ export function countEmptyCells(grid: GridState): number {
     for (const row of grid) {
         for (const cell of row) {
             if (cell === 'E') {
-                count++
+                count++;
             }
         }
     }

@@ -4,27 +4,26 @@ import { Grid } from "./component/Grid"
 import { useGame } from "./hooks/useGame"
 import { LobbyScreen } from "./screens/LobbyScreen"
 import { PlayScreen } from "./screens/PlayScreen"
+import { VictoryScreen } from "./screens/VictoryScreen"
+import { DrawScreen } from "./screens/DrawScreen"
 
 
 function App() {
   
   const {state, context, send} = useGame()
   const canDrop = state === GameStates.PLAY
-  console.log('canDrop', canDrop)
   const player = canDrop ? currentPlayer(context) : undefined
-  console.log('player', player)
   const dropToken = canDrop ? (x: number) => {
-
-    send({ type: 'dropToken', x: x})
+    send({ type: 'dropToken', x: x});
   } : undefined
-
-  console.log('dropToken', dropToken)
 
   return (
    <div className='container'>
      {state === GameStates.LOBBY && <LobbyScreen />}
      {state === GameStates.PLAY && <PlayScreen />}
-     <Grid grid={context.grid} onDrop={dropToken} color={player?.color} />
+     {state === GameStates.VICTORY && <VictoryScreen />}
+     {state === GameStates.DRAW && <DrawScreen />}
+     <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
    </div>
   )
 }
