@@ -7,7 +7,7 @@ L'objectif du projet est de créer un jeu de puissance 4 connecté ou 2 joueurs 
 - Les 2 joueurs choisissent une partie
 - Le créateur de la partie lance la partie
 - Les joueurs placent des pions à tour de rôle dans une grille de 7x6
-- Un joureur gagne si 4 pions sont alignés verticalement / horizontalement ou en diagonal
+- Un joueur gagne si 4 pions sont alignés verticalement / horizontalement ou en diagonal
 
 
 ## Technologies 

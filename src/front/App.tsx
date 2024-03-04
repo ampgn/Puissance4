@@ -6,6 +6,7 @@ import { LobbyScreen } from "./screens/LobbyScreen"
 import { PlayScreen } from "./screens/PlayScreen"
 import { VictoryScreen } from "./screens/VictoryScreen"
 import { DrawScreen } from "./screens/DrawScreen"
+import { Navbar } from "./screens/Navbar"
 
 
 function App() {
@@ -18,13 +19,16 @@ function App() {
   } : undefined
 
   return (
-   <div className='container'>
-     {state === GameStates.LOBBY && <LobbyScreen />}
-     {state === GameStates.PLAY && <PlayScreen />}
-     {state === GameStates.VICTORY && <VictoryScreen />}
-     {state === GameStates.DRAW && <DrawScreen />}
-     <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
-   </div>
+    <div className="containerStyle">
+      <Navbar />
+      <div className='container'>
+        {state === GameStates.LOBBY && <LobbyScreen />}
+        {state === GameStates.PLAY && <PlayScreen />}
+        {state === GameStates.VICTORY && <VictoryScreen />}
+        {state === GameStates.DRAW && <DrawScreen />}
+        <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
+      </div>
+    </div>
   )
 }
 
