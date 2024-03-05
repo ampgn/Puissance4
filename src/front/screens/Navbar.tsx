@@ -1,6 +1,6 @@
 
 import logo from "../../assets/P4_transparent.png"
-import logo2 from "../../assets/P4.png"
+import logo2 from "../../assets/Puissance4.png"
 
 export function Navbar() {
   return (

@@ -11,6 +11,23 @@ html, body {
   box-sizing: border-box;
 }
 
+.start-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.start-button {
+  margin-top: 20px;
+  background-color: sandybrown;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -18,7 +35,7 @@ html, body {
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
-  border-radius: max(32px, 1.6666666667vw);
+  border-radius: 5px;
 }
 
 .navbar-logo img {
@@ -59,6 +76,8 @@ input {
   line-height: 1;
   border-radius: 5px;
   border: 1px solid darkgray;
+  width: 100%;
+  background: #c5a17a;
 }
 
 input.disabled {
@@ -228,4 +247,25 @@ input.disabled {
 
 .colorChoice h3 {
   margin-right: 10px;
+}
+
+.startButton {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footerDesign {
+  background-color: #333;
 }

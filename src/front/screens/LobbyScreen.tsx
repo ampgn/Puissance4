@@ -21,7 +21,7 @@ export function LobbyScreen ({}: LobbyScreenProps) {
     return <div>
         <NameSelector onSelect={joinGame} />
         <ColorSelector onSelect={chooseColor} players={context.players} colors={colors} />
-        <p>
+        <p className="startButton">
             <button className="button" disabled={!canStart} onClick={prevent(startGame)}>Démarrer</button>
         </p>
     </div>
