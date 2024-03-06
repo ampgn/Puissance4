@@ -22,7 +22,7 @@ html, body {
 .containerStyle {
   width: 80%;
   margin: auto;
-  background-color: #fdc888;
+  background-color: rgba(253, 200, 136, 0.7);
   border-radius: 8px;
 }
 
@@ -310,4 +310,11 @@ input.disabled {
   max-height: 80%;
   background-color: bisque;
   margin: auto;
+}
+
+@media only screen and (max-width: 767px) {
+  .containerStyle {
+    width: 100%;
+  }
+  
 }

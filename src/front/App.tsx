@@ -24,11 +24,11 @@ function App() {
 
   useEffect(() => {
     gsap.to('.start-h1', {
-      duration: 20,
+      duration: 1.5,
       rotationY: 360
     });
   }, []);
-
+ 
   //useEffect(() => {
   //  startBackgroundCarousel(5000); 
   //}, []);
@@ -44,7 +44,7 @@ function App() {
     <div className="parent-container">
       {!gameStarted && (
         <div className="start-page">
-          <h1 className="start-h1">Bienvenue dans le jeu de Puissance 4</h1>
+          <h1 className="start-h1" id="scramble">Bienvenue dans le jeu de Puissance 4</h1>
           <button className="start-button" onClick={handleStartGame}>Commencer une partie</button>
         </div>
       )}
