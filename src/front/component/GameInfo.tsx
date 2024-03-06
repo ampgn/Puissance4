@@ -7,7 +7,7 @@ type GameInfoProps = {
 }
 
 export function GameInfo ({color, name}: GameInfoProps) {
-    return <div>
+    return <div className="current-player">
         <h2 className="flex" style={{gap: '.5rem'}}>
             Au tour de {name}
             <div className={discColorClass(color)}></div>

@@ -9,7 +9,7 @@ export function Draw ({ onRestart }: DrawProps) {
         <h2 className="flex" style={{gap: '.5rem'}}>
             Dommage : c'est une égalité
         </h2>
-        <button className="button" onClick={prevent(onRestart)}>
+        <button className="button" style={{marginLeft: '10px'}} onClick={prevent(onRestart)}>
             Rejouer
         </button>
     </div>

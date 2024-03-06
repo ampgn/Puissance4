@@ -5,10 +5,38 @@ html, body {
   position: relative;
   z-index: -1;
   border-radius: 5px;
+  /* background-image: var(--random-background-image); */
 }
 
 * {
   box-sizing: border-box;
+}
+
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+}
+
+.containerStyle {
+  width: 80%;
+  margin: auto;
+  background-color: #fdc888;
+  border-radius: 8px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  z-index: 1;
+  padding: 10px 10px 40px 10px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .start-page {
@@ -21,11 +49,15 @@ html, body {
 
 .start-button {
   margin-top: 20px;
-  background-color: sandybrown;
+  background-color: #e98853;
   padding: 20px;
   border-radius: 8px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.current-player {
+  margin-top: -10px;
 }
 
 .navbar {
@@ -95,23 +127,6 @@ input.disabled {
   margin-bottom: 8px;
 }
 
-.containerStyle {
-  width: 100%;
-  height: 100vh;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  z-index: -1;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .players {
   display: flex;
   justify-content: center;
@@ -130,7 +145,7 @@ input.disabled {
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 
 .disc-yellow {
@@ -175,7 +190,7 @@ input.disabled {
   border: 15px solid #2a5782;
   place-items: center;
   place-content: center;
-  margin-top: calc(100% / var(--rows));
+  margin-top: calc(45% / var(--rows));
 }
 
 .grid .disc {
@@ -232,6 +247,7 @@ input.disabled {
   border-radius: 5px;
   color: #FFF;
   line-height: 1;
+  margin-left: 10px;
 }
 
 .button:hover {
@@ -255,6 +271,21 @@ input.disabled {
   align-items: center;
 }
 
+.div-quit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quit-button {
+  margin-top: 50px;
+  background-color: sandybrown;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -268,4 +299,15 @@ input.disabled {
 
 .footerDesign {
   background-color: #333;
+}
+
+.game-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  max-height: 80%;
+  background-color: bisque;
+  margin: auto;
 }
