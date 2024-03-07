@@ -1,5 +1,5 @@
-import { ContextFrom, EventFrom } from 'xstate'
-import { GameModel } from './machine/gameMachine'
+import { ContextFrom, EventFrom } from 'xstate';
+import { GameModel } from './machine/gameMachine';
 
 export enum PlayerColor {
     RED = 'R',

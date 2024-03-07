@@ -8,23 +8,27 @@
     "build": "tsc && vite build",
     "start": "tsx src/server/server.ts",
     "start:watch": "nodemon src/server/server.ts",
+    "gen:key": "tsx src/commands/genkey.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest"
   },
   "dependencies": {
+    "@fastify/static": "^7.0.1",
     "@xstate/fsm": "^2.1.0",
     "@xstate/react": "^3.2.2",
     "fastify": "^4.26.2",
     "gsap": "^3.12.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "uuid": "^9.0.1",
     "xstate": "^4.38.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
