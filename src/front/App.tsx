@@ -9,6 +9,7 @@ import { LobbyScreen } from "./screens/LobbyScreen"
 import { PlayScreen } from "./screens/PlayScreen"
 import { VictoryScreen } from "./screens/VictoryScreen"
 import { DrawScreen } from "./screens/DrawScreen"
+import { LoginScreen } from "./screens/LoginScreen";
 //import { startBackgroundCarousel } from "./backgroundCaroussel"
 
 function App() {
@@ -33,12 +34,18 @@ function App() {
   //  startBackgroundCarousel(5000); 
   //}, []);
   
-  const {state, context, send} = useGame()
+  const {state, context, send, playerId} = useGame()
   const canDrop = state === GameStates.PLAY
   const player = canDrop ? currentPlayer(context) : undefined
   const dropToken = canDrop ? (x: number) => {
     send({ type: 'dropToken', x: x});
   } : undefined
+
+  if (!playerId) {
+    return <div className='container'>
+      <LoginScreen />
+    </div>
+  }
 
   return (
     <div className="parent-container">
@@ -51,6 +58,7 @@ function App() {
       {gameStarted && (
           <div className="containerStyle">
             <div className='container'>
+              PlayerId: {playerId}
               {state === GameStates.LOBBY && <LobbyScreen />}
               {state === GameStates.PLAY && <PlayScreen />}
               {state === GameStates.VICTORY && <VictoryScreen />}
