@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import gsap from "gsap";
 
 import { currentPlayer } from "../func/game"
-import { GameStates, ServerErrors } from "../types"
+import { GameStates } from "../types"
 import { Grid } from "./component/Grid"
 import { useGame } from "./hooks/useGame"
 import { LobbyScreen } from "./screens/LobbyScreen"
@@ -10,7 +10,6 @@ import { PlayScreen } from "./screens/PlayScreen"
 import { VictoryScreen } from "./screens/VictoryScreen"
 import { DrawScreen } from "./screens/DrawScreen"
 import { LoginScreen } from "./screens/LoginScreen";
-import { getSession, logout } from "./func/session";
 //import { startBackgroundCarousel } from "./backgroundCaroussel"
 
 function App() {
@@ -35,34 +34,11 @@ function App() {
   //  startBackgroundCarousel(5000); 
   //}, []);
   
-  const {state, context, send, playerId} = useGame()
-  const canDrop = state === GameStates.PLAY
-  const player = canDrop ? currentPlayer(context) : undefined
-  const dropToken = canDrop ? (x: number) => {
+  const {state, context, send, playerId, can} = useGame()
+  const showGrid = state !== GameStates.LOBBY;
+  const dropToken = (x: number) => {
     send({ type: 'dropToken', x: x});
-  } : undefined
-
-  useEffect(() => {
-    if (playerId) {
-      const searchParams = new URLSearchParams({
-        id: playerId,
-        signature: getSession()!.signature!,
-        name: getSession()!.name!,
-        gameId: 'test'
-      })
-
-      const socket = new WebSocket(
-        `${window.location.protocol.replace('http', 'ws')}//${window.location.host}/ws?${searchParams.toString()}`
-      )
-      socket.addEventListener('message', (event) => {
-        const message = JSON.parse(event.data);
-
-        if(message.type === 'error' && message.code === ServerErrors.AuthError) {
-          logout();
-        }
-      })
-    }
-  }, [playerId])
+  } 
 
   if (!playerId) {
     return <div className='containerStyle'>
@@ -81,13 +57,17 @@ function App() {
       {gameStarted && (
           <div className="containerStyle">
             <div className='container'>
-              PlayerId: {playerId}
-              {state === GameStates.LOBBY && <LobbyScreen />}
-              {state === GameStates.PLAY && <PlayScreen />}
-              {state === GameStates.VICTORY && <VictoryScreen />}
-              {state === GameStates.DRAW && <DrawScreen />}
+              { state === GameStates.LOBBY && <LobbyScreen /> }
+              { state === GameStates.PLAY && <PlayScreen /> }
+              { state === GameStates.VICTORY && <VictoryScreen /> }
+              { state === GameStates.DRAW && <DrawScreen /> }
               <div>
-                <Grid winingPositions={context.winingPositions} grid={context.grid} onDrop={dropToken} color={player?.color} />
+                { showGrid && <Grid 
+                  winingPositions={context!.winingPositions} 
+                  grid={context!.grid} 
+                  onDrop={dropToken} 
+                  color={currentPlayer(context)?.color} 
+                  canDrop={(x) => can({ type: 'dropToken', x })} /> }
               </div>
             </div>
             {/* <div className="div-quit-button">

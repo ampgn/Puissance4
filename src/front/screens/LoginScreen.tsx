@@ -1,6 +1,9 @@
-import { PlayerSession } from "../../types"
+import { v4 } from "uuid";
+import { PlayerSession, QueryParams } from "../../types"
 import { NameSelector } from "../component/NameSlector"
 import { saveSession } from "../func/session";
+import { updateQueryParams, urlSearchParams } from "../func/url";
+import { useGame } from "../hooks/useGame";
 
 type LoginScreenProps = {
     // ...
@@ -8,12 +11,16 @@ type LoginScreenProps = {
 
 // eslint-disable-next-line no-empty-pattern
 export function LoginScreen ({}: LoginScreenProps) {
+    const{connect} = useGame();
     const handleLogin = async(name: string) => {
         const response: PlayerSession = await fetch('/api/players', { method: 'POST' }).then(r => r.json());
         const player = saveSession({
             ...response,
             name
-        })
+        });
+        const gameId = urlSearchParams().get(QueryParams.GAMEID) ?? v4();
+        connect(player, gameId)
+        updateQueryParams({[QueryParams.GAMEID]: gameId})
     }
 
     return <div>

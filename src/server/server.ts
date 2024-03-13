@@ -49,7 +49,7 @@ fastify.register(async (f) => {
         publishMachine(game.state, connection);
 
         connection.socket.on('message', (rawMessage) => {
-            const message = JSON.parse(rawMessage.toLocalString());
+            const message = JSON.parse(rawMessage);
             if (message.type === 'gameUpdate') {
                 game.send(message.event)
             }
