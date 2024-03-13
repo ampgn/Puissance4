@@ -12,9 +12,9 @@ import {
     isWiningMoveGuard 
 } from './guards';
 import { 
+    joinGameAction,
     chooseColorAction, 
     dropTokenAction, 
-    joinGameAction, 
     leaveGameAction, 
     restartAction, 
     saveWiningPositionsAction, 

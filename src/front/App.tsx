@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import gsap from "gsap";
 
 import { currentPlayer } from "../func/game"
-import { GameStates } from "../types"
+import { GameStates, ServerErrors } from "../types"
 import { Grid } from "./component/Grid"
 import { useGame } from "./hooks/useGame"
 import { LobbyScreen } from "./screens/LobbyScreen"
@@ -10,6 +10,7 @@ import { PlayScreen } from "./screens/PlayScreen"
 import { VictoryScreen } from "./screens/VictoryScreen"
 import { DrawScreen } from "./screens/DrawScreen"
 import { LoginScreen } from "./screens/LoginScreen";
+import { getSession, logout } from "./func/session";
 //import { startBackgroundCarousel } from "./backgroundCaroussel"
 
 function App() {
@@ -41,9 +42,31 @@ function App() {
     send({ type: 'dropToken', x: x});
   } : undefined
 
+  useEffect(() => {
+    if (playerId) {
+      const searchParams = new URLSearchParams({
+        id: playerId,
+        signature: getSession()!.signature!,
+        name: getSession()!.name!,
+        gameId: 'test'
+      })
+
+      const socket = new WebSocket(
+        `${window.location.protocol.replace('http', 'ws')}//${window.location.host}/ws?${searchParams.toString()}`
+      )
+      socket.addEventListener('message', (event) => {
+        const message = JSON.parse(event.data);
+
+        if(message.type === 'error' && message.code === ServerErrors.AuthError) {
+          logout();
+        }
+      })
+    }
+  }, [playerId])
+
   if (!playerId) {
-    return <div className='container'>
-      <LoginScreen />
+    return <div className='containerStyle'>
+      <div className='container'><LoginScreen /></div>
     </div>
   }
 
