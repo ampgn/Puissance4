@@ -5,9 +5,9 @@ import { v4 } from 'uuid';
 import { sign, verify } from './func/crypto';
 import { resolve } from 'path';
 import { ServerErrors } from '../types';
+import { GameModel } from '../machine/gameMachine';
 import { GameRepository } from './repositories/GameRepository';
 import { ConnectionRepository } from './repositories/ConnectionRepository';
-import { GameModel } from '../machine/gameMachine';
 import { publishMachine } from './func/socket';
 
 
@@ -64,7 +64,7 @@ fastify.register(async (f) => {
 })
 
 fastify.post('/api/players', (req, res) => {
-    const playerId = v4();
+    const playerId = v4(); // On génère un id unique à la volée
     const signature = sign(playerId);
     res.send({
         id: playerId, 
