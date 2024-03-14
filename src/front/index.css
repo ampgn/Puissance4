@@ -56,6 +56,10 @@ html, body {
   font-weight: bold;
 }
 
+.start-button:hover {
+  background-color: #f7bf6a;
+}
+
 .current-player {
   margin-top: -10px;
 }
@@ -84,6 +88,11 @@ html, body {
 
 h1 {
   text-align: center;
+}
+
+h2 {
+  text-align: center;
+  font-size: 22px;
 }
 
 button {
@@ -246,17 +255,17 @@ input.disabled {
 }
 
 .button {
-  background-color: #5e80e7;
+  background-color: #207971;
   font: inherit;
   padding: .7rem 1rem;
   border-radius: 5px;
-  color: #FFF;
+  color: black;
   line-height: 1;
   margin-left: 10px;
 }
 
 .button:hover {
-  background-color: #3f60be;
+  background-color: #76967b;
 }
 
 .colorChoice {

@@ -10,7 +10,6 @@ import { PlayScreen } from "./screens/PlayScreen"
 import { VictoryScreen } from "./screens/VictoryScreen"
 import { DrawScreen } from "./screens/DrawScreen"
 import { LoginScreen } from "./screens/LoginScreen";
-//import { startBackgroundCarousel } from "./backgroundCaroussel"
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -19,20 +18,12 @@ function App() {
     setGameStarted(true);
   };
 
-  /* const handleQuitGame = () => {
-    setGameStarted(false);
-  }; */
-
   useEffect(() => {
     gsap.to('.start-h1', {
       duration: 1.5,
       rotationY: 360
     });
   }, []);
- 
-  //useEffect(() => {
-  //  startBackgroundCarousel(5000); 
-  //}, []);
   
   const {state, context, send, playerId, can} = useGame()
   const showGrid = state !== GameStates.LOBBY;
@@ -40,40 +31,39 @@ function App() {
     send({ type: 'dropToken', x: x});
   } 
 
-  if (!playerId) {
-    return <div className='containerStyle'>
-      <div className='container'><LoginScreen /></div>
-    </div>
+  if (!playerId && !gameStarted) {
+    return (
+      <div className="start-page">
+        <h1 className="start-h1" id="scramble">Bienvenue dans le jeu de Puissance 4</h1>
+        <button className="start-button" onClick={handleStartGame}>Commencer une partie</button>
+      </div>
+    );
   }
 
   return (
     <div className="parent-container">
-      {!gameStarted && (
-        <div className="start-page">
-          <h1 className="start-h1" id="scramble">Bienvenue dans le jeu de Puissance 4</h1>
-          <button className="start-button" onClick={handleStartGame}>Commencer une partie</button>
+      {(!playerId && gameStarted) && (
+        <div className="containerStyle">
+          <div className='container'><LoginScreen /></div>
         </div>
       )}
-      {gameStarted && (
-          <div className="containerStyle">
-            <div className='container'>
-              { state === GameStates.LOBBY && <LobbyScreen /> }
-              { state === GameStates.PLAY && <PlayScreen /> }
-              { state === GameStates.VICTORY && <VictoryScreen /> }
-              { state === GameStates.DRAW && <DrawScreen /> }
-              <div>
-                { showGrid && <Grid 
-                  winingPositions={context!.winingPositions} 
-                  grid={context!.grid} 
-                  onDrop={dropToken} 
-                  color={currentPlayer(context)?.color} 
-                  canDrop={(x) => can({ type: 'dropToken', x })} /> }
-              </div>
+      {playerId && (
+        <div className="containerStyle">
+          <div className='container'>
+            { state === GameStates.LOBBY && <LobbyScreen /> }
+            { state === GameStates.PLAY && <PlayScreen /> }
+            { state === GameStates.VICTORY && <VictoryScreen /> }
+            { state === GameStates.DRAW && <DrawScreen /> }
+            <div>
+              { showGrid && <Grid 
+                winingPositions={context!.winingPositions} 
+                grid={context!.grid} 
+                onDrop={dropToken} 
+                color={currentPlayer(context)?.color} 
+                canDrop={(x) => can({ type: 'dropToken', x })} /> }
             </div>
-            {/* <div className="div-quit-button">
-              <button className="quit-button" onClick={handleQuitGame}>Quitter la partie</button>
-            </div> */}
           </div>
+        </div>
       )}
     </div>
   )

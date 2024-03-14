@@ -18,7 +18,7 @@ export function NameSelector ({ onSelect, disabled }: NameSelectorProps) {
     }
 
     return <>
-        <h1>Sélectionner un pseudo</h1>
+        <h2>Sélectionner un pseudo</h2>
         {error && <div className="alert">
             {error}
             <button onClick={() => setError('')} className="alert_close">&times;</button>
