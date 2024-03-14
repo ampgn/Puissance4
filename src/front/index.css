@@ -200,6 +200,7 @@ input.disabled {
   place-items: center;
   place-content: center;
   margin-top: calc(45% / var(--rows));
+  border-radius: 5px;
 }
 
 .grid .disc {
