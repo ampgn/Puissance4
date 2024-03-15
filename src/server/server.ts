@@ -9,12 +9,32 @@ import { GameModel } from '../machine/gameMachine';
 import { GameRepository } from './repositories/GameRepository';
 import { ConnectionRepository } from './repositories/ConnectionRepository';
 import { publishMachine } from './func/socket';
-
+import { readFileSync } from 'fs';
+import { fastifyView } from '@fastify/view';
+import ejs from 'ejs'
 
 const connections = new ConnectionRepository();
 const games = new GameRepository(connections);
-const fastify = Fastify({logger: true});
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const env = process.env.NODE_ENV as 'dev' | 'prod';
+console.log("env", env)
+
+let manifest = {};
+try {
+    const manifestData = readFileSync('./public/assets/manifest.json');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    manifest = JSON.parse(manifestData.toLocaleString());
+} catch (e) {
+    console.log('error',e)
+}
+
+const fastify = Fastify({logger: true});
+fastify.register(fastifyView, {
+    engine: {
+        ejs: ejs
+    }
+})
 fastify.register(FastifyStatic, {
     root: resolve("./public")
 })
@@ -61,6 +81,10 @@ fastify.register(async (f) => {
             games.clean(gameId)
         })
     })
+})
+
+fastify.get('/', (req, res) => {
+    res.view("/templates/index.ejs", { manifest, env: process.env.NODE_ENV })
 })
 
  // eslint-disable-next-line @typescript-eslint/no-unused-vars

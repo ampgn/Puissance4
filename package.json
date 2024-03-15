@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "start": "tsx src/server/server.ts",
-    "start:watch": "nodemon src/server/server.ts",
+    "start": "SET NODE_ENV=prod & tsx src/server/server.ts",
+    "start:watch": "SET NODE_ENV=dev & nodemon src/server/server.ts",
     "gen:key": "tsx src/commands/genkey.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -16,9 +16,11 @@
   "dependencies": {
     "@fastify/static": "^7.0.1",
     "@fastify/type-provider-json-schema-to-ts": "^3.0.0",
+    "@fastify/view": "^9.0.0",
     "@fastify/websocket": "^9.0.0",
     "@xstate/fsm": "^2.1.0",
     "@xstate/react": "^3.2.2",
+    "ejs": "^3.1.9",
     "fastify": "^4.26.2",
     "gsap": "^3.12.5",
     "react": "^18.2.0",
