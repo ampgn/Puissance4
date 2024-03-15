@@ -49,7 +49,7 @@ fastify.register(async (f) => {
         publishMachine(game.state, connection);
 
         connection.socket.on('message', (rawMessage) => {
-            const message = JSON.parse(rawMessage);
+            const message = JSON.parse(rawMessage.toLocaleString());
             if (message.type === 'gameUpdate') {
                 game.send(message.event)
             }
@@ -63,6 +63,7 @@ fastify.register(async (f) => {
     })
 })
 
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
 fastify.post('/api/players', (req, res) => {
     const playerId = v4(); // On génère un id unique à la volée
     const signature = sign(playerId);

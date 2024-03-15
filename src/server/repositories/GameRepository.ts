@@ -1,4 +1,4 @@
-import { GameMachine } from '../../machine/GameMachine';
+import { GameMachine } from '../../machine/gameMachine';
 import { interpret, InterpreterFrom } from 'xstate';
 import { publishMachineToPlayers } from '../func/socket';
 import { ConnectionRepository } from './ConnectionRepository';
