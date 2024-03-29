@@ -16,14 +16,12 @@ import ejs from 'ejs'
 const connections = new ConnectionRepository();
 const games = new GameRepository(connections);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const env = process.env.NODE_ENV as 'dev' | 'prod';
+const env = process.env.NODE_ENV as 'development' | 'production';
 console.log("env", env)
 
 let manifest = {};
 try {
-    const manifestData = readFileSync('./public/assets/manifest.json');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const manifestData = readFileSync('./public/assets/.vite/manifest.json');
     manifest = JSON.parse(manifestData.toLocaleString());
 } catch (e) {
     console.log('error',e)

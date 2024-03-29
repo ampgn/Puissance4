@@ -2,10 +2,13 @@
 <!Doctype html>
 <html lang="en">
     <head>
-        <% if (env === 'prod') { %>
+        <% if (env === 'production') { %>
+            <script>console.log("If:", '<%=env%>');</script>
             <script defer src="/assets/<%= manifest['index.html']['file'] %>"></script>
-            <link rel="stylesheet" href="/assets/<%= manifest['index.html']['file']['css'][0] %>">
+            <link rel="stylesheet" href="/assets/<%= manifest['index.html']['css'][0] %>">
+            <link rel="stylesheet" href="/assets/<%= manifest['src/front/assets/background.jpg']['file'] %>">
         <% } else { %>
+            <script>console.log("Else:", '<%=env%>');</script>
             <script type="module" src="http://127.0.0.1:5173/@vite/client"></script>
             <script type="module">
             import RefreshRuntime from "http://127.0.0.1:5173/@react-refresh"
@@ -24,7 +27,7 @@
     </head>
     <body>
         <div id="root"></div>
-        <% if (env !== 'prod') { %>
+        <% if (env !== 'production') { %>
             <script type="module" src="http://127.0.0.1:5173/src/front/main.tsx"></script>
         <% } %>
     </body>

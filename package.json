@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "start": "SET NODE_ENV=prod & tsx src/server/server.ts",
-    "start:watch": "SET NODE_ENV=dev & nodemon src/server/server.ts",
+    "start": "SET NODE_ENV=production& tsx src/server/server.ts",
+    "start:watch": "SET NODE_ENV=development& nodemon src/server/server.ts",
     "gen:key": "tsx src/commands/genkey.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
