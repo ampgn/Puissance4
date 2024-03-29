@@ -2,7 +2,7 @@ import * as Crypto from 'crypto'
 import { readFileSync } from 'fs';
 
 const algo = "SHA256";
-const privateKey = readFileSync('privatekey.pem')
+const privateKey = process.env.PRIVATE_KEY ? JSON.parse(process.env.PRIVATE_KEY) : readFileSync('privatekey.pem');
 
 export function sign (str: string): string {
     return Crypto.sign(algo, Buffer.from(str), privateKey).toString("base64");

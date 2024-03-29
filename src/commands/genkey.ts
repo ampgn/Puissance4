@@ -13,4 +13,6 @@ const { privateKey } = generateKeyPairSync("rsa", {
     }
 })
 
-writeFileSync("privateKey.pem", privateKey)
+if (!process.env.PRIVATE_KEY) {
+    writeFileSync("privateKey.pem", privateKey)
+}
