@@ -1,6 +1,6 @@
 html, body {
   font-family: sans-serif;
-  background-image: url(../../src/front/assets/background.jpg), url('http://127.0.0.1:5173/../../src/front/assets/background.jpg');
+  background-image: url(../../src/front/assets/background.jpg), url('http://127.0.0.1:8000/background-gdYRHCI4.jpg');
   background-size: cover;
   position: relative;
   z-index: -1;
@@ -54,6 +54,7 @@ html, body {
   border-radius: 8px;
   font-size: 20px;
   font-weight: bold;
+  color: black;
 }
 
 .start-button:hover {
