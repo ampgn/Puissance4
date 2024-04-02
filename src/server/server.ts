@@ -11,7 +11,7 @@ import { ConnectionRepository } from './repositories/ConnectionRepository';
 import { publishMachine } from './func/socket';
 import { readFileSync } from 'fs';
 import { fastifyView } from '@fastify/view';
-import ejs from 'ejs'
+import ejs from 'ejs';
 
 const connections = new ConnectionRepository();
 const games = new GameRepository(connections);
