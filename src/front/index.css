@@ -1,6 +1,6 @@
 html, body {
   font-family: sans-serif;
-  background-image: url(../../src/front/assets/background.jpg), url('http://127.0.0.1:8000/background-gdYRHCI4.jpg');
+  background-image: url(../../src/front/assets/background.jpg), url('/assets/background-gdYRHCI4.jpg');
   background-size: cover;
   position: relative;
   z-index: -1;
