@@ -5,10 +5,10 @@ const algo = "SHA256";
 let privateKey;
 
 if (process.env.PRIVATE_KEY) {
-    // Utiliser la clé privée à partir de la variable d'environnement sur Heroku
+    // Utiliser la clé privée à partir de la variable d'environnement sur Heroku.
     privateKey = JSON.parse(process.env.PRIVATE_KEY);
 } else {
-    // Charger la clé privée à partir du fichier privatekey.pem en développement
+    // Charger la clé privée à partir du fichier privatekey.pem en développement.
     privateKey = readFileSync('privatekey.pem');
 }
 
